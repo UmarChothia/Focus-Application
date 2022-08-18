@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { colors } from '../utils/colours';
 import { RoundedButton } from '../components/button';
+import { paddings } from '../utils/sizes';
 
 // addTask is now a prop (property) of Focus
 export const Focus = ({addTask}) => {
@@ -40,14 +41,14 @@ const styles = StyleSheet.create({
 
   button: {
     justifyContent: 'center',
-    paddingLeft: 14
+    paddingLeft: paddings.md,
   },
   buttonInside: {
     justifyContent: 'center'
   },
   textInput: {
     flex: 1,
-    marginRight: 10,
+    marginRight: paddings.sm,
   },
   inputContainer: {
     padding: 25,
