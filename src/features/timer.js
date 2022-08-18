@@ -14,7 +14,7 @@ export const Timer = ({focusTask}) => {
     <View style={styles.buttonWrapper}>
 {/* if it isn't started, show us the start button - AND if it is started show us the pause button */}
       {!hasStarted && (<RoundedButton title="Go!" onPress={() => setHasStarted(true)}/>)}
-     {/* {hasStarted && (<RoundedButton title="pause" onPress={() => setHasStarted(false)}/>)}*/}
+     {hasStarted && (<RoundedButton title="pause" onPress={() => setHasStarted(false)}/>)}
     </View>
   </View>
   ); 
