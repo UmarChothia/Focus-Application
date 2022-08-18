@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Text, View, StyleSheet, SafeAreaView, Platform, StatusBar } from 'react-native';
 import Constants from 'expo-constants';
 import { colors } from './src/utils/colours';
+import { Focus } from './src/features/focus';
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Hello World!</Text>
+    <Focus />
     </SafeAreaView>
   );
 }
@@ -20,7 +21,4 @@ const styles = StyleSheet.create({
     // backgroundColor: '#F8F0E3',
     backgroundColor: colors.offWhite
   },
-  text: {
-    color: colors.darkGrey
-  }
 });
