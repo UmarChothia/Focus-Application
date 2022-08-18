@@ -1,15 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { colors } from '../utils/colours';
 
-export const Focus = () => (
-  <View style={styles.container}>
-    <View style={styles.inputContainer}>
-    <TextInput label="What would you like to focus on today?" />
+export const Focus = () => {
+const [subject, setSubject] = useState(null);
+
+return (
+    <View style={styles.container}>
+      <View style={styles.inputContainer}>
+      <TextInput onChangeText={setSubject} label="What would you like to focus on today?" />
+      </View>
     </View>
-  </View>
-)
+  );
+};
+
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +26,4 @@ const styles = StyleSheet.create({
     justifyContent: 'top',
     
   },
-  text: {
-    color: colors.darkGrey,
-  }
 });
