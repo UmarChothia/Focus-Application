@@ -10,20 +10,21 @@ import {
 import Constants from 'expo-constants';
 import { colors } from './src/utils/colours';
 import { Focus } from './src/features/focus';
+import { Timer } from './src/features/timer';
 
 export default function App() {
-  const [currentTask, setCurrentTask] = useState(null);
+  const [currentTask, setCurrentTask] = useState('test');
   return (
     <SafeAreaView style={styles.container}>
       {/* If there is no current task show us the focus feature OTHERWISE(:) show us a view for the timer */}
       {!currentTask ? (
         <Focus addTask={setCurrentTask} />
       ) : (
-        <View>
-          <Text style={{ color: colors.darkGrey }}>
-            I am going to render the timer for {currentTask}{' '}
-          </Text>
-        </View>
+        <Timer 
+          focusTask={currentTask}
+          onTimerEnd={() => {}}
+          clearTask={() => {}}
+          />
       )}
     </SafeAreaView>
   );
