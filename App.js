@@ -20,11 +20,11 @@ export default function App() {
       {!currentTask ? (
         <Focus addTask={setCurrentTask} />
       ) : (
-        <Timer 
+        <Timer
           focusTask={currentTask}
           onTimerEnd={() => {}}
-          clearTask={() => {}}
-          />
+          clearTask={() => setCurrentTask(null)}
+        />
       )}
     </SafeAreaView>
   );
