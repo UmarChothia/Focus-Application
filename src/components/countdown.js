@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { fontSizes, paddings } from "../utils/sizes";
-import { colors } from "../utils/colours";
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { fontSizes, paddings } from '../utils/sizes';
+import { colors } from '../utils/colours';
 
 // THIS CONVERTS MINUTES TO MS
 const minutesToMillis = (min) => min * 1000 * 60;
@@ -9,19 +9,23 @@ const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => (time < 10 ? `0${time}` : time);
 
 export const Countdown = ({
-  minutes = 20,
+  minutes = 0.1,
   isPaused,
   onStart = () => {},
   onPause = () => {},
   onEnd = () => {},
   onProgress = () => {},
 }) => {
-  const [millis, setMillis] = useState(minutesToMillis(minutes));
-  // useRef is a react hook - the difference between this hook and useState is that this will not cause a re-render like useState will. 
-  // useRef also only returns ONE object which we set to a varianle outseld 
+  // const [millis, setMillis] = useState(minutesToMillis(minutes));
+
+  // useRef is a react hook - the difference between this hook and useState is that this will not cause a re-render like useState will.
+  // useRef also only returns ONE object which we set to a varianle outseld
   // useRef tracks the value of setInterval below so that we can clear it incase we want to clear the timer or for another reason etc.
   // So initially we set the value to null
   const interval = React.useRef(null);
+  const [millis, setMillis] = useState(null);
+
+  const reset = () => setMillis(minutesToMillis(minutes));
 
   const countDown = () =>
     setMillis((time) => {
@@ -29,7 +33,7 @@ export const Countdown = ({
       if (time === 0) {
         clearInterval(interval.current);
         // So here if the time value is 0 then the countdown timer will end
-        onEnd();
+        onEnd(reset);
         return time;
       }
       // Here if the time is not 0, then take a second off (count down by 1s) and return that time - this is how we show out countdown timer
@@ -43,10 +47,10 @@ export const Countdown = ({
   }, [minutes]);
 
   useEffect(() => {
-    onProgress(millis/minutesToMillis(minutes));
+    onProgress(millis / minutesToMillis(minutes));
   }, [millis]);
 
-// Then this is our function - isPaused is a property of our countdown timer
+  // Then this is our function - isPaused is a property of our countdown timer
   useEffect(() => {
     if (isPaused) {
       onPause();
@@ -73,9 +77,9 @@ export const Countdown = ({
 const styles = StyleSheet.create({
   text: {
     fontSize: fontSizes.xxxl,
-    fontWeight: "bold",
-    color: "#fff",
+    fontWeight: 'bold',
+    color: '#fff',
     padding: paddings.lg,
-    backgroundColor: "#949494",
+    backgroundColor: '#949494',
   },
 });

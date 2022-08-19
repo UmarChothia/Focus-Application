@@ -22,6 +22,14 @@ export const Timer = ({ focusTask, clearTask }) => {
   const [hasStarted, setHasStarted] = useState(false);
   const [progress, setProgress] = useState(1);
   const [minutes, setMinutes] = useState(0.1);
+
+  const timerEnd = (reset) => {
+    Vibration.vibrate(PATTERN);
+    setHasStarted(false);
+    setProgress(1);
+    reset();
+  };
+
   // setProgress is the same as (value) => setProgress(value)
   return (
     <View style={styles.container}>
@@ -31,9 +39,7 @@ export const Timer = ({ focusTask, clearTask }) => {
           minutes={minutes}
           isPaused={!hasStarted}
           onProgress={setProgress}
-          onEnd={() => {
-            Vibration.vibrate(PATTERN);
-          }}
+          onEnd={timerEnd}
         />
         <View style={{ paddingTop: paddings.xl }}>
           <Text style={styles.title}>Focusing on:</Text>
@@ -60,7 +66,7 @@ export const Timer = ({ focusTask, clearTask }) => {
         )}
       </View>
       <View style={styles.resetWrapper}>
-      <RoundedButton size={50} title="-" onPress={clearTask} />
+        <RoundedButton size={50} title="-" onPress={clearTask} />
       </View>
     </View>
   );
