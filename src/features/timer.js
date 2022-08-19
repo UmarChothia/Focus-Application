@@ -1,33 +1,49 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Platform, Vibration } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { Countdown } from '../components/countdown';
 import { RoundedButton } from '../components/button';
 import { paddings } from '../utils/sizes';
 import { colors } from '../utils/colours';
 
+const ONE_SECOND_IN_MS = 1000;
+
+const PATTERN = [
+  // WE WANT IT TO VIBRATE 5 TIMES AFTER EACH SECOND ONCE THE TIMER IS COMPLETE
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+  1 * ONE_SECOND_IN_MS,
+];
+
 export const Timer = ({ focusTask }) => {
   const [hasStarted, setHasStarted] = useState(false);
   const [progress, setProgress] = useState(1);
-// setProgress is the same as (value) => setProgress(value)
+  const [minutes, setMinutes] = useState(0.2);
+  // setProgress is the same as (value) => setProgress(value)
   return (
     <View style={styles.container}>
       <View style={styles.countdown}>
         {/* Countdown timer isPaused if the countdown has not been started  */}
         <Countdown
+          minutes={minutes}
           isPaused={!hasStarted}
           onProgress={setProgress}
-          onEnd={() => {}}
+          onEnd={() => {
+            Vibration.vibrate(PATTERN)
+          }}
         />
         <View style={{ paddingTop: paddings.xl }}>
           <Text style={styles.title}>Focusing on:</Text>
           <Text style={styles.task}>{focusTask}</Text>
         </View>
       </View>
-      <View style={{paddingTop: paddings.sm}}>
+      <View style={{ paddingTop: paddings.sm }}>
         <ProgressBar
-        progress={progress}
-        color={'#9e9e9e'} style={{height:8}} 
+          progress={progress}
+          color={'#9e9e9e'}
+          style={{ height: 8 }}
         />
       </View>
       <View style={styles.buttonWrapper}>
