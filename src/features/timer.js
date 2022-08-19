@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, Platform, Vibration } from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 import { Countdown } from '../components/countdown';
+import { useKeepAwake } from 'expo-keep-awake';
 import { RoundedButton } from '../components/button';
 import { paddings } from '../utils/sizes';
 import { colors } from '../utils/colours';
@@ -19,6 +20,7 @@ const PATTERN = [
 ];
 
 export const Timer = ({ focusTask, clearTask }) => {
+  useKeepAwake();
   const [hasStarted, setHasStarted] = useState(false);
   const [progress, setProgress] = useState(1);
   const [minutes, setMinutes] = useState(0.1);
