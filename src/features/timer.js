@@ -18,7 +18,7 @@ const PATTERN = [
   1 * ONE_SECOND_IN_MS,
 ];
 
-export const Timer = ({ focusTask }) => {
+export const Timer = ({ focusTask, clearTask }) => {
   const [hasStarted, setHasStarted] = useState(false);
   const [progress, setProgress] = useState(1);
   const [minutes, setMinutes] = useState(0.1);
@@ -60,7 +60,7 @@ export const Timer = ({ focusTask }) => {
         )}
       </View>
       <View style={styles.resetWrapper}>
-      <RoundedButton size={50} title="-" onPress={() => {}} />
+      <RoundedButton size={50} title="-" onPress={clearTask} />
       </View>
     </View>
   );
