@@ -5,6 +5,7 @@ import { Countdown } from '../components/countdown';
 import { RoundedButton } from '../components/button';
 import { paddings } from '../utils/sizes';
 import { colors } from '../utils/colours';
+import { Timing } from './timing';
 
 const ONE_SECOND_IN_MS = 1000;
 
@@ -20,7 +21,7 @@ const PATTERN = [
 export const Timer = ({ focusTask }) => {
   const [hasStarted, setHasStarted] = useState(false);
   const [progress, setProgress] = useState(1);
-  const [minutes, setMinutes] = useState(0.2);
+  const [minutes, setMinutes] = useState(0.1);
   // setProgress is the same as (value) => setProgress(value)
   return (
     <View style={styles.container}>
@@ -31,7 +32,7 @@ export const Timer = ({ focusTask }) => {
           isPaused={!hasStarted}
           onProgress={setProgress}
           onEnd={() => {
-            Vibration.vibrate(PATTERN)
+            Vibration.vibrate(PATTERN);
           }}
         />
         <View style={{ paddingTop: paddings.xl }}>
@@ -46,6 +47,9 @@ export const Timer = ({ focusTask }) => {
           style={{ height: 8 }}
         />
       </View>
+      <View style={styles.timingWrapper}>
+        <Timing changeTime={setMinutes} />
+      </View>
       <View style={styles.buttonWrapper}>
         {/* if it isn't started, show us the start button - AND if it is started show us the pause button */}
         {!hasStarted && (
@@ -54,6 +58,9 @@ export const Timer = ({ focusTask }) => {
         {hasStarted && (
           <RoundedButton title="pause" onPress={() => setHasStarted(false)} />
         )}
+      </View>
+      <View style={styles.resetWrapper}>
+      <RoundedButton size={50} title="-" onPress={() => {}} />
       </View>
     </View>
   );
@@ -68,12 +75,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  timingWrapper: {
+    flex: 0.1,
+    paddingTop: paddings.xxl,
+    flexDirection: 'row',
+  },
   buttonWrapper: {
     flex: 0.3,
     flexDirection: 'row',
-    padding: 15,
+    padding: paddings.md,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  resetWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   title: {
     color: colors.darkGrey,
