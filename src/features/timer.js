@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { ProgressBar } from 'react-native-paper';
 import { Countdown } from '../components/countdown';
 import { RoundedButton } from '../components/button';
 import { paddings } from '../utils/sizes';
@@ -7,19 +8,27 @@ import { colors } from '../utils/colours';
 
 export const Timer = ({ focusTask }) => {
   const [hasStarted, setHasStarted] = useState(false);
+  const [progress, setProgress] = useState(1);
+// setProgress is the same as (value) => setProgress(value)
   return (
     <View style={styles.container}>
       <View style={styles.countdown}>
         {/* Countdown timer isPaused if the countdown has not been started  */}
         <Countdown
           isPaused={!hasStarted}
-          onProgress={() => {}}
+          onProgress={setProgress}
           onEnd={() => {}}
         />
         <View style={{ paddingTop: paddings.xl }}>
           <Text style={styles.title}>Focusing on:</Text>
           <Text style={styles.task}>{focusTask}</Text>
         </View>
+      </View>
+      <View style={{paddingTop: paddings.sm}}>
+        <ProgressBar
+        progress={progress}
+        color={'#9e9e9e'} style={{height:8}} 
+        />
       </View>
       <View style={styles.buttonWrapper}>
         {/* if it isn't started, show us the start button - AND if it is started show us the pause button */}

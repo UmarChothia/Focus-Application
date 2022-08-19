@@ -9,7 +9,7 @@ const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => (time < 10 ? `0${time}` : time);
 
 export const Countdown = ({
-  minutes = 20,
+  minutes = 1,
   isPaused,
   onStart = () => {},
   onPause = () => {},
@@ -41,6 +41,10 @@ export const Countdown = ({
   useEffect(() => {
     setMillis(minutesToMillis(minutes));
   }, [minutes]);
+
+  useEffect(() => {
+    onProgress(millis/minutesToMillis(minutes));
+  }, [millis]);
 
 // Then this is our function - isPaused is a property of our countdown timer
   useEffect(() => {
