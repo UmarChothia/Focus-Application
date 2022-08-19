@@ -9,7 +9,7 @@ const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => (time < 10 ? `0${time}` : time);
 
 export const Countdown = ({
-  minutes = 1,
+  minutes = 20,
   isPaused,
   onStart = () => {},
   onPause = () => {},
