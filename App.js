@@ -11,18 +11,25 @@ import Constants from 'expo-constants';
 import { colors } from './src/utils/colours';
 import { Focus } from './src/features/focus';
 import { Timer } from './src/features/timer';
+import { TaskArchive } from './src/features/taskArchive';
 
 export default function App() {
-  const [currentTask, setCurrentTask] = useState('test');
+  const [currentTask, setCurrentTask] = useState();
+  const [archive, setArchive] = useState([]);
   return (
     <SafeAreaView style={styles.container}>
       {/* If there is no current task show us the focus feature OTHERWISE(:) show us a view for the timer */}
       {!currentTask ? (
-        <Focus addTask={setCurrentTask} />
+        <>
+          <Focus addTask={setCurrentTask} />
+          <TaskArchive archive={archive} />
+        </>
       ) : (
         <Timer
           focusTask={currentTask}
-          onTimerEnd={() => {}}
+          onTimerEnd={(task) => {
+            setArchive([...archive, task]);
+          }}
           clearTask={() => setCurrentTask(null)}
         />
       )}

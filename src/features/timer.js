@@ -19,7 +19,7 @@ const PATTERN = [
   1 * ONE_SECOND_IN_MS,
 ];
 
-export const Timer = ({ focusTask, clearTask }) => {
+export const Timer = ({ focusTask, clearTask, onTimerEnd }) => {
   useKeepAwake();
   const [hasStarted, setHasStarted] = useState(false);
   const [progress, setProgress] = useState(1);
@@ -30,6 +30,7 @@ export const Timer = ({ focusTask, clearTask }) => {
     setHasStarted(false);
     setProgress(1);
     reset();
+    onTimerEnd(focusTask);
   };
 
   // setProgress is the same as (value) => setProgress(value)
