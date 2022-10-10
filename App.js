@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
     // backgroundColor: '#E1D9D1',
     // backgroundColor: 'linear-gradient(to bottom, rgba(7,27,82,1) 0%, rgba(0,128,128,1) 100%);',
     // backgroundColor: '#F8F0E3',
-    backgroundColor: colors.offWhite,
+    backgroundColor: colors.white,
   },
 });
